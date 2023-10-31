@@ -17,9 +17,28 @@
               <a href="/edit/<%= posts[i]._id %>">✏️</a>
             </h4>
             <p><%= posts[i].content %></p>
+            <span class="delete" data-id="<%= posts[i]._id %>">🗑️</span>
           </div>
         <% } %>
       </div>
+
+      <script>
+        document.querySelectorAll(".delete")[0].addEventListener("click", (e)=>{
+          fetch("/delete?docid=" + e.target.dataset.id,{
+            method: "DELETE"
+          });
+        });
+        document.querySelectorAll(".delete")[1].addEventListener("click", (e)=>{
+          fetch("/delete?docid=" + e.target.dataset.id,{
+            method: "DELETE"
+          });
+        });
+        document.querySelectorAll(".delete")[2].addEventListener("click", (e)=>{
+          fetch("/delete?docid=" + e.target.dataset.id,{
+            method: "DELETE"
+          });
+        });
+      </script>
     </body>
   </body>
 </html>
