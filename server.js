@@ -34,8 +34,22 @@ app.get("/news", (요청, 응답) => {
   응답.send("오늘 비옴");
 });
 
-app.get("/list", async (요청, 응답) => {
-  let result = await db.collection("post").find().toArray();
+app.get("/list/:page", async (요청, 응답) => {
+  let result = await db
+    .collection("post")
+    .find()
+    .skip((요청.params.page - 1) * 5)
+    .limit(5)
+    .toArray();
+  응답.render("list.ejs", { posts: result });
+});
+
+app.get("/list/next/:id", async (요청, 응답) => {
+  let result = await db
+    .collection("post")
+    .find({ _id: { $gt: new ObjectId(요청.params.id) } })
+    .limit(5)
+    .toArray();
   응답.render("list.ejs", { posts: result });
 });
 
