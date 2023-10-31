@@ -73,3 +73,11 @@ app.get("/edit/:id", async (요청, 응답) => {
     .findOne({ _id: new ObjectId(요청.params.id) });
   응답.render("edit.ejs", { post: result });
 });
+
+app.post("/edit/script", async (요청, 응답) => {
+  db.collection("post").updateOne(
+    { _id: new ObjectId(요청.body.id) },
+    { $set: { title: 요청.body.title, content: 요청.body.content } }
+  );
+  응답.redirect("/detail/" + 요청.body.id);
+});
