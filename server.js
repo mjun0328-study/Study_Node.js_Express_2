@@ -34,3 +34,12 @@ app.get("/list", async (요청, 응답) => {
   let result = await db.collection("post").find().toArray();
   응답.render("list.ejs", { posts: result });
 });
+
+app.get("/time", (요청, 응답) => {
+  const date = new Date();
+  응답.render("time.ejs", {
+    h: date.getHours(),
+    m: date.getMinutes(),
+    s: date.getSeconds(),
+  });
+});
