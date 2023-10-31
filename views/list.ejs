@@ -23,21 +23,17 @@
       </div>
 
       <script>
-        document.querySelectorAll(".delete")[0].addEventListener("click", (e)=>{
-          fetch("/delete?docid=" + e.target.dataset.id,{
-            method: "DELETE"
+        for(let i=0; i< "<%= posts.length %>"; i++) {
+          document.querySelectorAll(".delete")[i].addEventListener("click", (e)=>{
+            fetch("/delete?docid=" + e.target.dataset.id,{
+              method: "DELETE"
+            })
+            .then((r)=>r.text())
+            .then((r)=>{
+              e.target.parentElement.style.display = "none";
+            });
           });
-        });
-        document.querySelectorAll(".delete")[1].addEventListener("click", (e)=>{
-          fetch("/delete?docid=" + e.target.dataset.id,{
-            method: "DELETE"
-          });
-        });
-        document.querySelectorAll(".delete")[2].addEventListener("click", (e)=>{
-          fetch("/delete?docid=" + e.target.dataset.id,{
-            method: "DELETE"
-          });
-        });
+        }
       </script>
     </body>
   </body>
