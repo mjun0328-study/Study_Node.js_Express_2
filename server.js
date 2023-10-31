@@ -66,3 +66,10 @@ app.get("/detail/:id", async (요청, 응답) => {
     .findOne({ _id: new ObjectId(요청.params.id) });
   응답.render("detail.ejs", { post: result });
 });
+
+app.get("/edit/:id", async (요청, 응답) => {
+  let result = await db
+    .collection("post")
+    .findOne({ _id: new ObjectId(요청.params.id) });
+  응답.render("edit.ejs", { post: result });
+});
