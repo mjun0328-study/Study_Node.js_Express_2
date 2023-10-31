@@ -60,10 +60,9 @@ app.post("/add", async (요청, 응답) => {
   }
 });
 
-app.get("/detail/:aaa", async (요청, 응답) => {
-  console.log(요청.params);
+app.get("/detail/:id", async (요청, 응답) => {
   let result = await db
     .collection("post")
-    .findOne({ _id: new ObjectId("654071a412bb41375811b1fc") });
-  응답.render("detail.ejs");
+    .findOne({ _id: new ObjectId(요청.params.id) });
+  응답.render("detail.ejs", { post: result });
 });
