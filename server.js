@@ -7,7 +7,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 const fs = require("fs");
-const { MongoClient } = require("mongodb");
+const { MongoClient, ObjectId } = require("mongodb");
 
 let db;
 const url = fs.readFileSync("secret/dbURL.txt", "utf8");
@@ -58,4 +58,12 @@ app.post("/add", async (요청, 응답) => {
     console.log(e);
     응답.status(500).send("서버에러남");
   }
+});
+
+app.get("/detail/:aaa", async (요청, 응답) => {
+  console.log(요청.params);
+  let result = await db
+    .collection("post")
+    .findOne({ _id: new ObjectId("654071a412bb41375811b1fc") });
+  응답.render("detail.ejs");
 });
