@@ -1,6 +1,8 @@
 const express = require("express");
 const app = express();
+const methodOverride = require("method-override");
 
+app.use(methodOverride("_method"));
 app.use(express.static(__dirname + "/public"));
 app.set("view engine", "ejs");
 app.use(express.json());
@@ -74,10 +76,10 @@ app.get("/edit/:id", async (요청, 응답) => {
   응답.render("edit.ejs", { post: result });
 });
 
-app.post("/edit/script", async (요청, 응답) => {
+app.put("/edit", async (요청, 응답) => {
   db.collection("post").updateOne(
     { _id: new ObjectId(요청.body.id) },
     { $set: { title: 요청.body.title, content: 요청.body.content } }
   );
-  응답.redirect("/detail/" + 요청.body.id);
+  응답.redirect("/list");
 });
